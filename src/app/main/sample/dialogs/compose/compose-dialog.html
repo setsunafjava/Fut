@@ -1,0 +1,152 @@
+<md-dialog class="compose-dialog" aria-label="New Message">
+    <form class="md-inline-form">
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title">{{vm.title}} đơn thuốc</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" tranlate translate-aria-label="MAIL.CLOSE_DIALOG">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Thông tin">
+                    <md-content class="md-padding" ms-scroll>
+                        <md-input-container class="md-block">
+                            <label>Tên bác sĩ</label>
+                            <input ng-model="vm.prescription.doctor_name" ng-class="{'view-mode': vm.view_mode}" ng-disabled="vm.view_mode" type="text">
+                        </md-input-container>
+
+
+
+                        <md-input-container class="md-block">
+                            <label>Tên đơn thuốc</label>
+                            <input ng-model="vm.prescription.diseases_name" type="text" ng-class="{'view-mode': vm.view_mode}" ng-disabled="vm.view_mode">
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>Tên bệnh nhân</label>
+                            <input ng-model="vm.prescription.patient_name" type="text" ng-class="{'view-mode': vm.view_mode}" ng-disabled="vm.view_mode">
+                        </md-input-container>
+                        <div layout-xs="column" layout="row" class="md-block">
+                            <div flex class="date-container">
+                                <label>Ngày bắt đầu</label>
+                                <md-datepicker flex ng-model="vm.prescription.start_date" ng-disabled="vm.view_mode" md-placeholder="Start Date"></md-datepicker>
+                            </div>
+
+                            <div flex class="date-container">
+                                <label>Ngày kết thúc</label>
+                                <md-datepicker flex ng-model="vm.prescription.end_date" ng-disabled="vm.view_mode" md-placeholder="Due Date"></md-datepicker>
+                            </div>
+                        </div>
+                        <md-input-container class="md-block">
+                            <label>Mô tả</label>
+                            <textarea ng-class="{'view-mode': vm.view_mode}" ng-disabled="vm.view_mode" ng-model="vm.prescription.description" md-maxlength="150"
+                                rows="5"></textarea>
+                        </md-input-container>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Thuốc">
+                    <md-content class="md-padding" ms-scroll>
+                        <md-toolbar class="md-table-toolbar md-default">
+                            <div class="md-toolbar-tools">
+                                <span>Danh sách thuốc</span>
+                                <md-button class="md-fab" aria-label="Eat cake" ng-if="!vm.view_mode" ng-click="vm.addNew()">
+                                    <md-icon md-font-icon="icon-library-plus"></md-icon>
+                                </md-button>
+                            </div>
+                        </md-toolbar>
+                        <md-table-container>
+                            <table md-table>
+                                <thead md-head>
+                                    <tr md-row>
+
+                                        <th md-column md-order-by="name"><span>Tên thuốc</span></th>
+                                        <th md-column md-order-by="component"><span>Thành phần chính</span></th>
+                                        <th md-column md-order-by="amount"><span>Liều lượng</span></th>
+                                        <th md-column md-order-by="time_active"><span>Thời gian</span></th>
+
+                                        <th md-column style="text-align: center;padding-right: 0px;"><span>Thao tác</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row md-select="dessert" ng-repeat="dessert in vm.prescription.curatives">
+
+                                        <td md-cell ng-click="vm.editComment($event, dessert,'name','text')" ng-class="{'md-placeholder': !dessert.name}">{{dessert.name}}</td>
+                                        <td md-cell ng-click="vm.editComment($event, dessert,'component','text')" ng-class="{'md-placeholder': !dessert.component}">{{dessert.component}}</td>
+                                        <td md-cell ng-click="vm.editComment($event, dessert,'amount','text')" ng-class="{'md-placeholder': !dessert.amount}">{{dessert.amount}}</td>
+                                        <td md-cell>
+                                            <ul>
+                                                <li ng-repeat="time in dessert.time_active">
+                                                    <div ng-show="vm.view_mode"> {{time}} </div>
+                                                    <div ng-show="!vm.view_mode">{{time| date: "HH:mm:ss"}} <input ng-init="time = Date(time)" ng-model="time" type="time" ></div>
+                                                </li>
+
+                                            </ul>
+                                        </td>
+                                        <td md-cell layout="row" style="padding-right: 0px;text-align: center;">
+
+                                            <md-button ng-disabled="vm.view_mode" class="md-icon-button" aria-label="Delete" style="
+                                                                                margin-left: 0px;
+                                                                                margin-right: 0px;
+                                                                                padding-right: 0px;
+                                                                                padding-left: 0px;">
+                                                <md-icon md-font-icon="icon-delete"></md-icon>
+                                                <md-tooltip><span>Delete</span></md-tooltip>
+                                            </md-button>
+                                            <md-button ng-disabled="vm.view_mode" class="md-icon-button" aria-label="Delete" style="
+                                                                                margin-left: 0px;
+                                                                                margin-right: 0px;
+                                                                                padding-right: 0px;
+                                                                                padding-left: 0px;">
+                                                <md-icon md-font-icon="icon-timer"></md-icon>
+                                                <md-tooltip><span>Thời gian</span></md-tooltip>
+                                            </md-button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </md-content>
+                </md-tab>
+
+            </md-tabs>
+            <!--<div class="attachment-list">
+                <div class="attachment" layout="row" layout-align="space-between center">
+                    <div>
+                        <span class="filename">attachment-2.doc</span>
+                        <span class="size">(12 Kb)</span>
+                    </div>
+
+                    <md-button class="md-icon-button" aria-label="Delete attachment" translate translate-attr-aria-label="MAIL.DELETE_ATTACHMENT">
+                        <md-icon md-font-icon="icon-close" class="s16"></md-icon>
+                    </md-button>
+                </div>
+
+                <div class="attachment" layout="row" layout-align="space-between center">
+                    <div>
+                        <span class="filename">attachment-1.jpg</span>
+                        <span class="size">(350 Kb)</span>
+                    </div>
+
+                    <md-button class="md-icon-button" aria-label="Delete attachment" translate translate-attr-aria-label="MAIL.DELETE_ATTACHMENT">
+                        <md-icon md-font-icon="icon-close" class="s16"></md-icon>
+                    </md-button>
+                </div>
+            </div>-->
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center" ng-if="!vm.view_mode">
+            <div layout="row" layout-align="start center">
+                <md-button ng-click="vm.add()" class="send-button md-accent md-raised" aria-label="Send" ng-if="!vm.view_mode">
+                    LƯU
+                </md-button>
+
+
+            </div>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>

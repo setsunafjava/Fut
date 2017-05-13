@@ -1,0 +1,135 @@
+<div class="page-layout carded fullwidth" layout="row">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center" layout="column" flex>
+
+        <!-- CONTENT HEADER -->
+        <div class="header">
+            <span class="h2 white-fg">Quản lý đơn thuốc</span>
+        </div>
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" layout="column" flex>
+
+            <!-- CONTENT TOOLBAR -->
+            <!--<div class="toolbar" layout="row" layout-align="start center">
+                <span>Content toolbar</span>
+            </div>-->
+            <!-- / CONTENT TOOLBAR -->
+
+            <!-- CONTENT -->
+            <md-content class="content" flex ms-scroll style="background: rgb(245,245,245);">
+
+                <!-- DEMO CONTENT -->
+                <!--<md-card>
+                    <div layout="row" layout-wrap class="checkboxes">
+                        <md-checkbox ng-model="options.rowSelection">Row Selection</md-checkbox>
+                        <md-checkbox ng-model="options.multiSelect">Multiple Selection</md-checkbox>
+                        <md-checkbox ng-model="options.autoSelect">Auto Selection</md-checkbox>
+                        <md-checkbox ng-model="options.decapitate">Decapitate</md-checkbox>
+                        <md-checkbox ng-model="options.largeEditDialog">Lard Edit Dialogs</md-checkbox>
+                        <md-checkbox ng-model="options.boundaryLinks">Pagination Boundary Links</md-checkbox>
+                        <md-checkbox ng-model="options.limitSelect" ng-click="toggleLimitOptions()">Pagination Limit Select</md-checkbox>
+                        <md-checkbox ng-model="options.pageSelect">Pagination Page Select</md-checkbox>
+                    </div>
+                </md-card>-->
+
+                <md-card>
+
+                    <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
+                        <div class="md-toolbar-tools">
+                            <span>Danh sách đơn thuốc</span>
+                            <md-button class="md-fab" aria-label="Eat cake" ng-click="vm.composeDialog($event,'Thêm',null,false)">
+                                <md-icon md-font-icon="icon-library-plus"></md-icon>
+                            </md-button>
+                            <div flex></div>
+                            <md-button class="md-icon-button" ng-click="loadStuff()">
+                                <md-icon md-font-icon="icon-refresh"></md-icon>
+
+                            </md-button>
+                        </div>
+                    </md-toolbar>
+
+                    <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
+                        <div class="md-toolbar-tools">
+                            <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                        </div>
+                    </md-toolbar>
+
+                    <md-table-container>
+                        <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                            <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                                <tr md-row>
+
+                                    <th md-column md-order-by="doctor_name"><span>Tên bác sĩ</span></th>
+                                    <th md-column md-order-by="diseases_name"><span>Tên đơn thuốc</span></th>
+                                    <th md-column md-order-by="patient_name"><span>Tên bệnh nhân</span></th>
+                                    <th md-column md-order-by="description" md-desc><span>Mô tả</span></th>
+                                    <th md-column md-order-by="start_date"><span>Ngày bắt đầu</span></th>
+                                    <th md-column md-order-by="end_date"><span>Ngày kết thúc</span></th>
+
+                                    <th md-column style="text-align: center;padding-right: 0px;"><span>Thao tác</span></th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row md-select="dessert" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+
+                                    <td md-cell>{{dessert.doctor_name}}</td>
+                                    <td md-cell>{{dessert.diseases_name}}</td>
+                                    <td md-cell>{{dessert.patient_name}}</td>
+                                    <td md-cell>{{dessert.description}}</td>
+                                    <td md-cell>{{dessert.start_date | date: dd/MM/yyyy}}</td>
+                                    <td md-cell>{{dessert.end_date | date: dd/MM/yyyy}}</td>
+
+                                    <td md-cell layout="row" style="padding-right: 0px;text-align: center;">
+                                        <md-button ng-click="vm.composeDialog($event,'Hiển thị',dessert,true)"class="md-icon-button" aria-label="View" style="
+                                                                                margin-left: 0px;
+                                                                                margin-right: 0px;
+                                                                                padding-right: 0px;
+                                                                                padding-left: 0px;">
+                                            <md-icon md-font-icon="icon-eye"></md-icon>
+                                            <md-tooltip><span>View</span></md-tooltip>
+                                        </md-button>
+                                        <md-button ng-click="vm.composeDialog($event,'Sửa',dessert,false)" class="md-icon-button" aria-label="Edit" style="
+                                                                                margin-left: 0px;
+                                                                                margin-right: 0px;
+                                                                                padding-right: 0px;
+                                                                                padding-left: 0px;">
+                                            <md-icon md-font-icon="icon-pencil"></md-icon>
+                                            <md-tooltip><span>Edit</span></md-tooltip>
+                                        </md-button>
+                                        <md-button class="md-icon-button" aria-label="Delete" style="
+                                                                                margin-left: 0px;
+                                                                                margin-right: 0px;
+                                                                                padding-right: 0px;
+                                                                                padding-left: 0px;">
+                                            <md-icon md-font-icon="icon-delete"></md-icon>
+                                            <md-tooltip><span>Delete</span></md-tooltip>
+                                        </md-button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+
+                    <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{desserts.count}}"
+                        md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+                </md-card>
+                <!-- / DEMO CONTENT -->
+
+            </md-content>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

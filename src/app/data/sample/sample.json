@@ -1,0 +1,30 @@
+{
+    "data": {
+        "helloText": "Hello, I'm a sample page!",
+        "Data": {
+            "count": 9,
+            "data": [
+                {
+                    "doctor_name": "Vũ Tiến Đạt",
+                    "diseases_name": "Trầm cảm",
+                    "patient_name" : "Hoàng Việt Cường",
+                    "description": "Thuốc chỉ uống với chỉ định của bác sĩ",
+                    "start_date": 	"2017-04-26T16:31:38.805Z",
+                    "end_date": 	"2017-04-26T16:31:38.805Z",
+                    "curatives": [
+                        {
+                            "name": "Xyz",
+                            "component": "sdkaldlajdlasjkdl",
+                            "amount": "200",
+                            "time_active" : [
+                                "2017-04-26T16:31:38.805Z",
+                                "2017-04-26T14:31:38.805Z",
+                                "2017-04-26T15:31:38.805Z"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
