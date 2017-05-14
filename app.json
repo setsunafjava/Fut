@@ -1,0 +1,12 @@
+{
+  "name": "Demo",
+  "description": "Demo - TCM 12",
+  "keywords": [
+  ],
+  "website": "https://github.com/kvbutler/chat-bot-demo",
+  "repository": "https://github.com/kvbutler/chat-bot-demo",
+  "image": "heroku/nodejs",
+  "scripts": {
+    "postdeploy": "npm install && bower install"
+  }
+}
