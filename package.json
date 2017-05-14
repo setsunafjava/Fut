@@ -4,6 +4,8 @@
   "dependencies": {},
   "scripts": {
     "test": "gulp test"
+	"start": "gulp serve"
+	"postinstall": "npm install && bower install"
   },
   "devDependencies": {
 	"bower" : "~1.8.0"
